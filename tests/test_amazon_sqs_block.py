@@ -14,28 +14,37 @@ class TestSQS(NIOBlockTestCase):
         """Signals ..."""
         blk = SQSSendMessage()
         self.configure_block(blk, {
-            "message_body": "allo",
-            "delay_seconds": 0,
-            "message_attributes": {
-                "attribute_name": "msgAttr",
-                "attribute_type": "msgAttrType",
-                "attribute_value": "msgAttrVal",
-            },
+            "region_name": "{{ $region_name }}",
+            "aws_access_key_id": "{{ $aws_access_key_id }}",
+            "aws_secret_access_key": "{{ $aws_secret_access_key }}",
+            "queue_url": "{{ $queue_url }}",
+            "message_body": "{{ $message_body }}",
+            "delay_seconds": "{{ $delay_seconds }}",
         })
-
         blk.start()
-        blk.process_signals([Signal({
-            "message_body": "allo",
-            "delay_seconds": 0,
-            "message_attributes": {
-                "attribute_name": "msgAttr",
-                "attribute_type": "msgAttrType",
-                "attribute_value": "msgAttrVal",
-            },
-        })])
-        blk.stop()
 
-        # Test 'assert_called_with'
+        with patch.object(blk, "client") as patched_client:
+            patched_client.send_message.return_value = {
+                'MD5OfMessageBody': 'string',
+                'MD5OfMessageAttributes': 'string',
+                'MessageId': 'string',
+                'SequenceNumber': 'string'
+            }
+            blk.process_signals([Signal({
+                "region_name": "urMomsHouse",
+                "aws_access_key_id": "keyID",
+                "aws_secret_access_key": "ssssssecret",
+                "queue_url": "thequeueforyou.com",
+                "message_body": "ayyo1120",
+                "delay_seconds": 0,
+            })])
+            patched_client.send_message.assert_called_once_with(
+                QueueUrl="thequeueforyou.com",
+                DelaySeconds=0,
+                MessageBody="ayyo1120"
+            )
+
+        blk.stop()
         self.assert_num_signals_notified(1)
         self.assertDictEqual(
             self.last_notified[DEFAULT_TERMINAL][0].to_dict(),
