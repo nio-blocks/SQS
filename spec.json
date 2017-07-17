@@ -1,28 +1,77 @@
 {
-  "namespace/BlockName": {
-    "Version": "1.0.0",
-    "Description": "Description of the block.",
-    "Output": "Description of block output(s).",
-    "Input": "Description of block input(s).",
+  "nio/sqs_send_message_block": {
+    "Version": "0.1.0",
+    "Description": "Send messages via Amazon SQS.",
+    "Output": "Signal containing message identifying numbers",
+    "Input": "Any list of signals containing data for property assignments",
     "Dependencies": [
-      "<List of required dependencies.>"
+      "boto3"
     ],
     "Commands": {
-      "<command1>": {
-        "description": "Required description of the command",
-        "type": "Optional type and other metadata with any key."
-      },
-      "<command2>": {
-        "description": "Required description of the command"
+      "none": {
+        "description": "",
+        "type": ""
       }
     },
     "Properties": {
-      "<property1>": {
-        "description": "Required description of the property"
+      "aws_access_key_id": {
+        "description": "Amazon Access Key credential"
       },
-      "<property2>": {
-        "default": "Optional metadata with any key.",
-        "description": "Required description of the property"
+      "aws_secret_access_key": {
+        "description": "Amazon Secret Access Key credential"
+      },
+      "aws_session_token": {
+        "description": "Amazon Session Token credential"
+      },
+      "queue_url": {
+        "description": "URL of SQS queue to connect to"
+      },
+      "message_body": {
+        "description": "Message content"
+      },
+      "delay_seconds": {
+        "description": "Seconds before message is availalbe for processing"
+      }
+    }
+  },
+  "nio/sqs_receive_message_block": {
+    "Version": "0.1.0",
+    "Description": "Receive messages from an Amazon SQS queue",
+    "Output": "Signal of the requested message",
+    "Input": "Any list of signals containing data for property assignments",
+    "Dependencies": [
+      "boto3"
+    ],
+    "Commands": {
+      "none": {
+        "description": "",
+        "type": ""
+      }
+    },
+    "Properties": {
+      "aws_access_key_id": {
+        "description": "Amazon Access Key credential"
+      },
+      "aws_secret_access_key": {
+        "description": "Amazon Secret Access Key credential"
+      },
+      "aws_session_token": {
+        "description": "Amazon Session Token credential"
+      },
+      "queue_url": {
+        "description": "URL of SQS queue to connect to"
+      },
+      "max_number_of_messages": {
+        "description": "Max number of messages to return"
+      },
+      "visibility_timeout": {
+        "description": "Duration (in seconds) that received messages are hidden from subsequent retrieve requests after being retrieved"
+      },
+      "wait_time_seconds": {
+        "description": "Duration (in seconds) for which the call waits for a message to arrive in the queue before returning"
+      },
+      "receive_request_attempt_id": {
+        "description": "*Only applies to FIFO queues*; If a network issues causes a generic error, use this ID to retrieve the same set of messages"
       }
     }
   }

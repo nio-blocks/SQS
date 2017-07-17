@@ -30,12 +30,4 @@ class SQSSendMessage(SQSBase):
             except:
                 self.logger.exception("Message failed to send")
 
-            self.notify_signals(new_signals)
-
-            # RESPONSE
-            # {
-            #     'MD5OfMessageBody': 'string',
-            #     'MD5OfMessageAttributes': 'string',
-            #     'MessageId': 'string',
-            #     'SequenceNumber': 'string'
-            # }
+        self.notify_signals(new_signals)
