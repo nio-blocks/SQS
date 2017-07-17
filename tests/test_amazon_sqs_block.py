@@ -1,19 +1,90 @@
+from unittest.mock import patch
+
 from nio.block.terminals import DEFAULT_TERMINAL
 from nio.signal.base import Signal
 from nio.testing.block_test_case import NIOBlockTestCase
-from ..amazon_sqs_base_block import Example
+
+from ..amazon_sqs_send_message_block import SQSSendMessage
+# from ..amazon_sqs_receive_message_block import SQSReceiveMessage
 
 
-class TestExample(NIOBlockTestCase):
+class TestSQS(NIOBlockTestCase):
 
-    def test_process_signals(self):
-        """Signals pass through block unmodified."""
-        blk = Example()
-        self.configure_block(blk, {})
+    def test_send_message(self):
+        """Signals ..."""
+        blk = SQSSendMessage()
+        self.configure_block(blk, {
+            "message_body": "allo",
+            "delay_seconds": 0,
+            "message_attributes": {
+                "attribute_name": "msgAttr",
+                "attribute_type": "msgAttrType",
+                "attribute_value": "msgAttrVal",
+            },
+        })
+
         blk.start()
-        blk.process_signals([Signal({"hello": "n.io"})])
+        blk.process_signals([Signal({
+            "message_body": "allo",
+            "delay_seconds": 0,
+            "message_attributes": {
+                "attribute_name": "msgAttr",
+                "attribute_type": "msgAttrType",
+                "attribute_value": "msgAttrVal",
+            },
+        })])
         blk.stop()
+
+        # Test 'assert_called_with'
         self.assert_num_signals_notified(1)
         self.assertDictEqual(
             self.last_notified[DEFAULT_TERMINAL][0].to_dict(),
-            {"hello": "n.io"})
+            {
+                'MD5OfMessageBody': 'string',
+                'MD5OfMessageAttributes': 'string',
+                'MessageId': 'string',
+                'SequenceNumber': 'string'
+            }
+        )
+
+    # def test_receive_message(self):
+    #     """Signals ..."""
+    #     blk = SQSReceiveMessage()
+    #     self.configure_block(blk, {})
+    #
+    #     blk.start()
+    #     blk.process_signals([Signal({"hello": "n.io"})])
+    #     blk.stop()
+    #
+    #     # Test 'assert_called_with'
+    #     self.assert_num_signals_notified(1)
+    #     self.assertDictEqual(
+    #         self.last_notified[DEFAULT_TERMINAL][0].to_dict(),
+    #         {
+    #             'Messages': [
+    #                 {
+    #                     'MessageId': 'string',
+    #                     'ReceiptHandle': 'string',
+    #                     'MD5OfBody': 'string',
+    #                     'Body': 'string',
+    #                     'Attributes': {
+    #                         'string': 'string'
+    #                     },
+    #                     'MD5OfMessageAttributes': 'string',
+    #                     'MessageAttributes': {
+    #                         'string': {
+    #                             'StringValue': 'string',
+    #                             'BinaryValue': b'bytes',
+    #                             'StringListValues': [
+    #                                 'string',
+    #                             ],
+    #                             'BinaryListValues': [
+    #                                 b'bytes',
+    #                             ],
+    #                             'DataType': 'string'
+    #                         },
+    #                     }
+    #                 },
+    #             ]
+    #         }
+    #     )
