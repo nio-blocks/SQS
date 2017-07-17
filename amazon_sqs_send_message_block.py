@@ -1,39 +1,17 @@
 from nio.util.discovery import discoverable
-from nio.properties import (StringProperty, IntProperty,
-                            PropertyHolder, ObjectProperty)
+from nio.properties import StringProperty, IntProperty
 from .amazon_sqs_base_block import SQSBase
-
-
-class MessageAttributes(PropertyHolder):
-    attribute_name = StringProperty(
-        title="Message Attribute Name", default="Attr Name", allow_none=False)
-    attribute_type = StringProperty(
-        title="Message Attribute Type", default="Attr Name", allow_none=False)
-    attribute_value = StringProperty(
-        title="Message Attribute Value", default="Attr Name", allow_none=False)
 
 
 @discoverable
 class SQSSendMessage(SQSBase):
     """Send message over Amazon SQS
-        User needs to specify a queue url and message body
-        If specifying a message attribute,
-        it must include a name, type, and value"""
+        User needs to specify a queue url and message body"""
 
     message_body = StringProperty(
         title="Message Body", default="Hello Mr. SQS", allow_none=False)
     delay_seconds = IntProperty(
         title="Delay sending message", default=0, allow_none=True)
-    message_attributes = ObjectProperty(MessageAttributes(),
-                                        title="Message Attributes",
-                                        default=MessageAttributes(),
-                                        allow_none=True)
-
-    # ^ message_attributes are not required, but if used, they need a name/type/value
-    # did I configure this correctly?
-    # It needs to be able to add multiple attributes
-        # TODO: MAKE 'ADD' BUTTON LIKE IN DYNAMIC FIELDS BLOCK
-    # Should this block include batch sending of messages
 
     def process_signals(self, signals):
         for signal in signals:
@@ -43,7 +21,6 @@ class SQSSendMessage(SQSBase):
 
                 self.client.send_message(QueueUrl=self.queue_url(signal),
                                          DelaySeconds=self.delay_seconds(signal),
-                                         MessageAttributes=self.message_attributes(signal),
                                          MessageBody=self.message_body(signal))
 
                 # RESPONSE

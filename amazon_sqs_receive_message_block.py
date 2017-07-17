@@ -1,5 +1,5 @@
 from nio.util.discovery import discoverable
-from nio.properties import StringProperty, IntProperty, ListProperty
+from nio.properties import StringProperty, IntProperty
 from .amazon_sqs_base_block import SQSBase
 
 
@@ -10,14 +10,6 @@ class SQSReceiveMessage(SQSBase):
         If specifying a message attribute,
         it must include a name, type, and value"""
 
-    attribute_names = ListProperty(
-        title="Attributes Returned with each Message",
-        default=[],
-        allow_none=True
-    )
-    # ^ AWS has defined possibilies here, should it just be text input?
-    message_attribute_names = ListProperty(
-        title="Message Attribute to Return", default=[], allow_none=True)
     max_number_of_messages = IntProperty(
         title="Max Number Messages to Receive", default=1, allow_none=True)
     visibility_timeout = IntProperty(
@@ -36,8 +28,6 @@ class SQSReceiveMessage(SQSBase):
 
                 self.client.receive_message(
                     QueueUrl=self.queue_url(signal),
-                    AttributeNames=self.attribute_names(signal),
-                    MessageAttributeNames=self.message_attribute_names(signal),
                     MaxNumberOfMessages=self.max_number_of_messages(signal),
                     VisibilityTimeout= self.visibility_timeout(signal),
                     WaitTimeSeconds= self.wait_time_seconds(signal),
