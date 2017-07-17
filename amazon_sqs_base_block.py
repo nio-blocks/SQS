@@ -1,13 +1,32 @@
 import boto3
 from nio.block.base import Block
 from nio.properties import (VersionProperty, PropertyHolder, StringProperty,
-                            ObjectProperty)
+                            ObjectProperty, SelectProperty)
 from nio.util.discovery import not_discoverable
+from enum import Enum
+
+
+class Regions(Enum):
+    us_east_1 = "us-east-1"
+    us_east_2 = "us-east-2"
+    us_west_1 = "us-west-1"
+    us_west_2 = "us-west-2"
+    ca_central_1 = "ca_central_1"
+    eu_west_1 = "eu-west-1"
+    eu_west_2 = "eu-west-2"
+    eu_central_1 = "eu-central-1"
+    ap_northeast_1 = "ap-northeast-1"
+    ap_northeast_2 = "ap-northeast-2"
+    ap_southeast_1 = "ap-southeast-1"
+    ap_southeast_2 = "ap-southeast-2"
+    ap_south_1 = "ap-south-1"
+    sa_east_1 = "sa-east-1"
+
 
 
 class AWSCreds(PropertyHolder):
-    region_name = StringProperty(
-        title="Region Name", default="us-east-2", allow_none=True)
+    region_name = SelectProperty(
+        Regions, title="Region Name", default=Regions.us_east_2)
     aws_access_key_id = StringProperty(
         title="Access Key ID", default="", allow_none=False)
     aws_secret_access_key = StringProperty(

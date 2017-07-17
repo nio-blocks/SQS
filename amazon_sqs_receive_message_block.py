@@ -7,8 +7,8 @@ from .amazon_sqs_base_block import SQSBase
 
 @discoverable
 class SQSReceiveMessage(SQSBase):
-    """Send message over Amazon SQS
-        User needs to specify a queue url and message body"""
+    """Reveive message from Amazon SQS
+        User needs to specify a queue url"""
 
     max_number_of_messages = IntProperty(
         title="Max Number Messages to Receive", default=1, allow_none=True)
@@ -23,10 +23,10 @@ class SQSReceiveMessage(SQSBase):
         new_signals = []
         for signal in signals:
             try:
-                self.logger.debug("Sending message via {} queue".format(
+                self.logger.debug("Receiving message from {} queue".format(
                     self.queue_url(signal)))
 
-                response = self.client.receive_message(
+                message = self.client.receive_message(
                     QueueUrl=self.queue_url(signal),
                     MaxNumberOfMessages=self.max_number_of_messages(signal),
                     VisibilityTimeout= self.visibility_timeout(signal),
@@ -34,9 +34,9 @@ class SQSReceiveMessage(SQSBase):
                     ReceiveRequestAttemptId= self.receive_request_attempt_id(signal)
                 )
 
-                new_signals.append(Signal(response))
+                new_signals.append(Signal(message))
 
             except:
-                self.logger.exception("Message failed to send")
+                self.logger.exception("Message failed to be received")
 
         self.notify_signals(new_signals)
