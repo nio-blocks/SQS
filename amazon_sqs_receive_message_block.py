@@ -7,7 +7,7 @@ from .amazon_sqs_base_block import SQSBase
 
 @discoverable
 class SQSReceiveMessage(SQSBase):
-    """Reveive message from Amazon SQS
+    """Receive message from Amazon SQS
         User needs to specify a queue url"""
 
     max_number_of_messages = IntProperty(
