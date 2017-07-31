@@ -14,9 +14,6 @@ class TestSQS(NIOBlockTestCase):
         """Signals ..."""
         blk = SQSSendMessage()
         self.configure_block(blk, {
-            "region_name": "us-west-1",
-            "aws_access_key_id": "keyID",
-            "aws_secret_access_key": "ssssssecret",
             "queue_url": "thequeueforyou.com",
             "message_body": "{{ $message_body }}",
             "delay_seconds": "{{ $delay_seconds }}",
