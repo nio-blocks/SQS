@@ -1,9 +1,10 @@
 import boto3
+from enum import Enum
+
 from nio.block.base import Block
 from nio.properties import (VersionProperty, PropertyHolder, StringProperty,
                             ObjectProperty, SelectProperty)
 from nio.util.discovery import not_discoverable
-from enum import Enum
 
 
 class Regions(Enum):
