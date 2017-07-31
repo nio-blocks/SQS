@@ -23,10 +23,12 @@ class Regions(Enum):
     sa_east_1 = "sa-east-1"
 
 
-
 class AWSCreds(PropertyHolder):
     region_name = SelectProperty(
-        Regions, title="Region Name", default=Regions.us_east_2)
+        Regions,
+        title="Region Name",
+        default=Regions.us_east_2
+    )
     aws_access_key_id = StringProperty(
         title="Access Key ID", default="", allow_none=False)
     aws_secret_access_key = StringProperty(
@@ -53,7 +55,7 @@ class SQSBase(Block):
         super().configure(context)
         self.client = boto3.client(
             'sqs',
-            region_name=self.creds().region_name(),
+            region_name=self.creds().region_name().value,
             aws_access_key_id=self.creds().aws_access_key_id(),
             aws_secret_access_key=self.creds().aws_secret_access_key(),
             aws_session_token=self.creds().aws_secret_access_key())

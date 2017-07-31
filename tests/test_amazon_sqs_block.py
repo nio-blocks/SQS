@@ -14,10 +14,10 @@ class TestSQS(NIOBlockTestCase):
         """Signals ..."""
         blk = SQSSendMessage()
         self.configure_block(blk, {
-            "region_name": "{{ $region_name }}",
-            "aws_access_key_id": "{{ $aws_access_key_id }}",
-            "aws_secret_access_key": "{{ $aws_secret_access_key }}",
-            "queue_url": "{{ $queue_url }}",
+            "region_name": "us-west-1",
+            "aws_access_key_id": "keyID",
+            "aws_secret_access_key": "ssssssecret",
+            "queue_url": "thequeueforyou.com",
             "message_body": "{{ $message_body }}",
             "delay_seconds": "{{ $delay_seconds }}",
         })
@@ -31,10 +31,6 @@ class TestSQS(NIOBlockTestCase):
                 'SequenceNumber': 'string'
             }
             blk.process_signals([Signal({
-                "region_name": "urMomsHouse",
-                "aws_access_key_id": "keyID",
-                "aws_secret_access_key": "ssssssecret",
-                "queue_url": "thequeueforyou.com",
                 "message_body": "ayyo1120",
                 "delay_seconds": 0,
             })])

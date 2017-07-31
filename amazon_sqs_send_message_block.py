@@ -22,9 +22,10 @@ class SQSSendMessage(SQSBase):
                 self.logger.debug("Sending message via {} queue".format(
                     self.queue_url(signal)))
 
-                response = self.client.send_message(QueueUrl=self.queue_url(signal),
-                                         DelaySeconds=self.delay_seconds(signal),
-                                         MessageBody=self.message_body(signal))
+                response = self.client.send_message(
+                    QueueUrl=self.queue_url(signal),
+                    DelaySeconds=self.delay_seconds(signal),
+                    MessageBody=self.message_body(signal))
                 new_signals.append(Signal(response))
 
             except:
