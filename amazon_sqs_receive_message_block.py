@@ -29,9 +29,10 @@ class SQSReceiveMessage(SQSBase):
                 message = self.client.receive_message(
                     QueueUrl=self.queue_url(signal),
                     MaxNumberOfMessages=self.max_number_of_messages(signal),
-                    VisibilityTimeout= self.visibility_timeout(signal),
-                    WaitTimeSeconds= self.wait_time_seconds(signal),
-                    ReceiveRequestAttemptId= self.receive_request_attempt_id(signal)
+                    VisibilityTimeout=self.visibility_timeout(signal),
+                    WaitTimeSeconds=self.wait_time_seconds(signal),
+                    ReceiveRequestAttemptId=self.receive_request_attempt_id(
+                        signal)
                 )
 
                 new_signals.append(Signal(message))
