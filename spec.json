@@ -1,5 +1,5 @@
 {
-  "nio/sqs_receive_message_block": {
+  "nio/SQSReceiveMessage": {
     "version": "0.0.1",
     "description": "",
     "inputs": {},
@@ -7,7 +7,7 @@
     "properties": {},
     "commands": {}
   },
-  "nio/sqs_send_message_block": {
+  "nio/SQSSendMessage": {
     "version": "0.0.1",
     "description": "",
     "inputs": {},

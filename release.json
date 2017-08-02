@@ -1,5 +1,10 @@
 {
-  "nio/SQS": {
+  "nio/SQSReceiveMessage": {
+    "language": "Python",
+    "version": "0.0.1",
+    "reference": "github.com/nio-blocks/SQS@v0.0.1"
+  },
+  "nio/SQSSendMessage": {
     "language": "Python",
     "version": "0.0.1",
     "reference": "github.com/nio-blocks/SQS@v0.0.1"
