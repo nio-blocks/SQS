@@ -1,4 +1,3 @@
-from nio.util.discovery import discoverable
 from nio.properties import StringProperty, IntProperty, VersionProperty
 from nio.signal.base import Signal
 
