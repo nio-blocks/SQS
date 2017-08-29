@@ -1,12 +1,12 @@
 {
   "nio/SQSReceiveMessage": {
     "language": "Python",
-    "version": "0.0.1",
-    "url": "git://github.com/nio-blocks/SQS.git"
+    "url": "git://github.com/nio-blocks/SQS.git",
+    "version": "1.0.0"
   },
   "nio/SQSSendMessage": {
     "language": "Python",
-    "version": "0.0.1",
-    "url": "git://github.com/nio-blocks/SQS.git"
+    "url": "git://github.com/nio-blocks/SQS.git",
+    "version": "1.0.0"
   }
 }

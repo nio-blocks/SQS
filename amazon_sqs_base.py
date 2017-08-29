@@ -1,8 +1,8 @@
-import boto3
 from enum import Enum
 
+import boto3
 from nio.block.base import Block
-from nio.properties import (VersionProperty, PropertyHolder, StringProperty,
+from nio.properties import (PropertyHolder, StringProperty,
                             ObjectProperty, SelectProperty)
 from nio.util.discovery import not_discoverable
 
@@ -41,7 +41,6 @@ class AWSCreds(PropertyHolder):
 @not_discoverable
 class SQSBase(Block):
     """ This is the base block for integrating n.io with AWS SQS"""
-    version = VersionProperty("1.0.0")
     creds = ObjectProperty(
         AWSCreds, title="AWS Credentials", default=AWSCreds())
 

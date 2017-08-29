@@ -1,18 +1,106 @@
 {
   "nio/SQSReceiveMessage": {
-    "version": "0.0.1",
-    "description": "",
-    "inputs": {},
-    "outputs": {},
-    "properties": {},
+    "version": "1.0.0",
+    "description": "Retrieves one or more messages (up to 10), from the specified queue.",
+    "properties": {
+      "creds": {
+        "title": "AWS Credentials",
+        "type": "ObjectType",
+        "description": "[AWS Credentials](http://boto3.readthedocs.io/en/latest/guide/configuration.html)",
+        "default": {
+          "region_name": "us_east_2",
+          "aws_session_token": "",
+          "aws_secret_access_key": "",
+          "aws_access_key_id": ""
+        }
+      },
+      "max_number_of_messages": {
+        "title": "Max Number Messages to Receive",
+        "type": "IntType",
+        "description": "The maximum number of messages to return. Amazon SQS never returns more messages than this value (however, fewer messages might be returned). Valid values are 1 to 10. Default is 1.",
+        "default": 1
+      },
+      "queue_url": {
+        "title": "Queue URL",
+        "type": "StringType",
+        "description": "The URL of the Amazon SQS queue from which messages are received. Queue URLs are case-sensitive.",
+        "default": ""
+      },
+      "receive_request_attempt_id": {
+        "title": "ID to attempt retry",
+        "type": "StringType",
+        "description": "The token used for deduplication of ReceiveMessage calls.",
+        "default": ""
+      },
+      "visibility_timeout": {
+        "title": "Visibility Timeout",
+        "type": "IntType",
+        "description": "The duration (in seconds) that the received messages are hidden from subsequent retrieve requests after being retrieved by a ReceiveMessage request.",
+        "default": 0
+      },
+      "wait_time_seconds": {
+        "title": "Time to wait for messages",
+        "type": "IntType",
+        "description": "The duration (in seconds) for which the call waits for a message to arrive in the queue before returning. If a message is available, the call returns sooner than WaitTimeSeconds.",
+        "default": 10
+      }
+    },
+    "inputs": {
+      "default": {
+        "description": "Any list of signals"
+      }
+    },
+    "outputs": {
+      "default": {
+        "description": "List of signals with repsonse from receive"
+      }
+    },
     "commands": {}
   },
   "nio/SQSSendMessage": {
-    "version": "0.0.1",
-    "description": "",
-    "inputs": {},
-    "outputs": {},
-    "properties": {},
+    "version": "1.0.0",
+    "description": "Delivers a message to the specified queue.",
+    "properties": {
+      "creds": {
+        "title": "AWS Credentials",
+        "type": "ObjectType",
+        "description": "[AWS Credentials](http://boto3.readthedocs.io/en/latest/guide/configuration.html)",
+        "default": {
+          "region_name": "us_east_2",
+          "aws_session_token": "",
+          "aws_secret_access_key": "",
+          "aws_access_key_id": ""
+        }
+      },
+      "delay_seconds": {
+        "title": "Delay sending message",
+        "type": "IntType",
+        "description": "The length of time, in seconds, for which to delay a specific message. Valid values: 0 to 900.",
+        "default": 0
+      },
+      "message_body": {
+        "title": "Message Body",
+        "type": "StringType",
+        "description": "The message to send. The maximum string size is 256 KB.",
+        "default": "Hello Mr. SQS"
+      },
+      "queue_url": {
+        "title": "Queue URL",
+        "type": "StringType",
+        "description": "The URL of the Amazon SQS queue from which messages are received. Queue URLs are case-sensitive.",
+        "default": ""
+      }
+    },
+    "inputs": {
+      "default": {
+        "description": "Any list of signals"
+      }
+    },
+    "outputs": {
+      "default": {
+        "description": "List of signals with repsonse from send"
+      }
+    },
     "commands": {}
   }
 }

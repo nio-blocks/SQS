@@ -1,15 +1,14 @@
-from nio.util.discovery import discoverable
-from nio.properties import StringProperty, IntProperty
+from nio.properties import StringProperty, IntProperty, VersionProperty
 from nio.signal.base import Signal
 
-from .amazon_sqs_base_block import SQSBase
+from .amazon_sqs_base import SQSBase
 
 
-@discoverable
 class SQSReceiveMessage(SQSBase):
     """Receive message from Amazon SQS
         User needs to specify a queue url"""
 
+    version = VersionProperty("1.0.0")
     max_number_of_messages = IntProperty(
         title="Max Number Messages to Receive", default=1, allow_none=True)
     visibility_timeout = IntProperty(

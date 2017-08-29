@@ -1,15 +1,14 @@
-from nio.util.discovery import discoverable
-from nio.properties import StringProperty, IntProperty
+from nio.properties import StringProperty, IntProperty, VersionProperty
 from nio.signal.base import Signal
 
-from .amazon_sqs_base_block import SQSBase
+from .amazon_sqs_base import SQSBase
 
 
-@discoverable
 class SQSSendMessage(SQSBase):
     """Send message over Amazon SQS
         User needs to specify a queue url and message body"""
 
+    version = VersionProperty("1.0.0")
     message_body = StringProperty(
         title="Message Body", default="Hello Mr. SQS", allow_none=False)
     delay_seconds = IntProperty(
