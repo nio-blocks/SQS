@@ -13,11 +13,11 @@ Properties
 
 Inputs
 ------
-None
+- **default**: Any list of signals
 
 Outputs
 -------
-None
+- **default**: List of signals with repsonse from receive
 
 Commands
 --------
@@ -40,11 +40,11 @@ Properties
 
 Inputs
 ------
-None
+- **default**: Any list of signals
 
 Outputs
 -------
-None
+- **default**: List of signals with repsonse from send
 
 Commands
 --------
@@ -53,3 +53,4 @@ None
 Dependencies
 ------------
 boto3
+
