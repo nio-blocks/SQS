@@ -2,6 +2,9 @@
   "nio/SQSReceiveMessage": {
     "version": "1.0.0",
     "description": "Retrieves one or more messages (up to 10), from the specified queue.",
+    "categories": [
+      "Communication"
+    ],
     "properties": {
       "creds": {
         "title": "AWS Credentials",
@@ -60,6 +63,9 @@
   "nio/SQSSendMessage": {
     "version": "1.0.0",
     "description": "Delivers a message to the specified queue.",
+    "categories": [
+      "Communication"
+    ],
     "properties": {
       "creds": {
         "title": "AWS Credentials",
