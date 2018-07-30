@@ -1,7 +1,7 @@
 {
   "nio/SQSReceiveMessage": {
     "version": "1.0.0",
-    "description": "Retrieves one or more messages (up to 10), from the specified queue.",
+    "description": "Retrieves one or more messages (up to 10) from the specified queue.",
     "categories": [
       "Communication"
     ],
@@ -9,7 +9,7 @@
       "creds": {
         "title": "AWS Credentials",
         "type": "ObjectType",
-        "description": "[AWS Credentials](http://boto3.readthedocs.io/en/latest/guide/configuration.html)",
+        "description": "[AWS Credentials](http://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-setting-up.html).",
         "default": {
           "region_name": "us_east_2",
           "aws_session_token": "",
@@ -20,7 +20,7 @@
       "max_number_of_messages": {
         "title": "Max Number Messages to Receive",
         "type": "IntType",
-        "description": "The maximum number of messages to return. Amazon SQS never returns more messages than this value (however, fewer messages might be returned). Valid values are 1 to 10. Default is 1.",
+        "description": "The maximum number of messages to return. Amazon SQS never returns more messages than this value; however, fewer messages may be returned. Valid values are 1 to 10. Default is 1.",
         "default": 1
       },
       "queue_url": {
@@ -50,12 +50,12 @@
     },
     "inputs": {
       "default": {
-        "description": "Any list of signals"
+        "description": "Any list of signals."
       }
     },
     "outputs": {
       "default": {
-        "description": "List of signals with repsonse from receive"
+        "description": "List of signals with response from receive."
       }
     },
     "commands": {}
@@ -70,7 +70,7 @@
       "creds": {
         "title": "AWS Credentials",
         "type": "ObjectType",
-        "description": "[AWS Credentials](http://boto3.readthedocs.io/en/latest/guide/configuration.html)",
+        "description": "[AWS Credentials](http://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-setting-up.html).",
         "default": {
           "region_name": "us_east_2",
           "aws_session_token": "",
@@ -99,12 +99,12 @@
     },
     "inputs": {
       "default": {
-        "description": "Any list of signals"
+        "description": "Any list of signals."
       }
     },
     "outputs": {
       "default": {
-        "description": "List of signals with repsonse from send"
+        "description": "List of signals with response from send."
       }
     },
     "commands": {}
