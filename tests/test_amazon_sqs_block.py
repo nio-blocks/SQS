@@ -10,16 +10,38 @@ from ..amazon_sqs_receive_message_block import SQSReceiveMessage
 
 class TestSQS(NIOBlockTestCase):
 
+    @patch('boto3.client')
+    def test_client(self, mock_client):
+        creds = {
+            "aws_access_key_id": "foo",
+            "aws_secret_access_key": "bar",
+            "aws_session_token": "baz",
+            "region_name": "us-east-1"
+        }
+        blk = SQSSendMessage()
+        self.configure_block(blk, {
+            "queue_url": "thequeueforyou.com",
+            "message_body": "{{ $message_body }}",
+            "delay_seconds": "{{ $delay_seconds }}",
+            "creds": creds,
+        })
+        blk.start()
+        mock_client.assert_called_once_with(
+            'sqs',
+            aws_access_key_id=creds['aws_access_key_id'],
+            aws_secret_access_key=creds['aws_secret_access_key'],
+            aws_session_token=creds['aws_session_token'],
+            region_name='us-east-1')
+
     def test_send_message(self):
         """Signals ..."""
         blk = SQSSendMessage()
         self.configure_block(blk, {
             "queue_url": "thequeueforyou.com",
             "message_body": "{{ $message_body }}",
-            "delay_seconds": "{{ $delay_seconds }}",
+            "delay_seconds": "{{ $delay_seconds }}"
         })
         blk.start()
-
         with patch.object(blk, "client") as patched_client:
             patched_client.send_message.return_value = {
                 'MD5OfMessageBody': 'string',
