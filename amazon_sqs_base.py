@@ -58,4 +58,4 @@ class SQSBase(Block):
             region_name=self.creds().region_name().value,
             aws_access_key_id=self.creds().aws_access_key_id(),
             aws_secret_access_key=self.creds().aws_secret_access_key(),
-            aws_session_token=self.creds().aws_secret_access_key())
+            aws_session_token=self.creds().aws_session_token())
